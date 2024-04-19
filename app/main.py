@@ -32,7 +32,7 @@ def data():
     db.seed(100)
     monsters = list(db.collection.find())
     return render_template(
-        "data.html",
+        "data.html", monsters=monsters,
         count=db.count(),
         table=db.html_table(),
     )
