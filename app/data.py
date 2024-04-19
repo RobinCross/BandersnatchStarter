@@ -11,14 +11,17 @@ class Database:
     def __int__(self):
         load_dotenv()
         self.client = MongoClient(getenv("DB_URL"))
-        self.db = self.client['monster_db']
-        self.collection = self.db['monsters']
+        self.db = self.client["monster_db"]
+        self.collection = self.db["monsters"]
 
 
 
     def seed(self, amount):
         monsters = [Monster().to_dict() for _ in range(amount)]
-        self.collection.insert_many(monsters)
+        result = self.collection.insert_many(monsters)
+        print(f"Inserted {len(result.inserted_ids)} monsters into the database.")
+
+
 
     def reset(self):
         pass

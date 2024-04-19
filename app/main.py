@@ -29,6 +29,8 @@ def data():
     if SPRINT < 1:
         return render_template("data.html")
     db = Database()
+    db.seed(100)
+    monsters = list(db.collection.find())
     return render_template(
         "data.html",
         count=db.count(),
