@@ -8,9 +8,17 @@ from pymongo import MongoClient
 
 
 class Database:
+    def __int__(self):
+        load_dotenv()
+        self.client = MongoClient(getenv("DB_URL"))
+        self.db = self.client['monster_db']
+        self.collection = self.db['monsters']
+
+
 
     def seed(self, amount):
-        pass
+        monsters = [Monster().to_dict() for _ in range(amount)]
+        self.collection.insert_many(monsters)
 
     def reset(self):
         pass
