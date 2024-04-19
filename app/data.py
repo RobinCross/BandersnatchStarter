@@ -14,23 +14,29 @@ class Database:
         self.db = self.client["monster_db"]
         self.collection = self.db["monsters"]
 
-
-
     def seed(self, amount):
+        """
+        Seed function generate a specified number of monsters from the MonstersLab library
+        and insert them into the monster's collection.
+        """
         monsters = [Monster().to_dict() for _ in range(amount)]
-        result = self.collection.insert_many(monsters)
-        print(f"Inserted {len(result.inserted_ids)} monsters into the database.")
-
-
+        self.collection.insert_many(monsters)
 
     def reset(self):
-        pass
+        """
+        Reset function deletes all monsters from the monsters collection
+        """
+        self.collection.delete_many({})
 
     def count(self) -> int:
-        pass
+        """
+        The Count function returns the number of monsters in the monsters collectiongit
+        """
+        self.collection.count_documents({})
 
     def dataframe(self) -> DataFrame:
-        pass
+        data = list(self.collection.find({}), {"_id": False})
 
     def html_table(self) -> str:
-        pass
+        df = self.dataframe()
+        return df.to_html(index=False) if not df.empty else ""
