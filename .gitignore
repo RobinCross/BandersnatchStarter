@@ -119,3 +119,4 @@ dmypy.json
 .pytype/
 cython_debug/
 .env
+exploratory_nb.ipynb

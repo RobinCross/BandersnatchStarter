@@ -16,6 +16,10 @@ class Database:
         # Get a reference to the monster_db database in mongodb
         self.collection = self.db["monsters"]
         # Get a reference to the monsters collection within the monster_db database
+    def set_db_url(self, db_url):
+        self.client = MongoClient(db_url, tlsCAFile=certifi.where())
+        self.db = self.client["monster_db"]
+        self.collection = self.db["monsters"]
 
     def seed(self, amount):
         """
